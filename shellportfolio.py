@@ -20,9 +20,6 @@ import datetime
 from xml.dom import minidom
 from prettytable import PrettyTable
 
-displayTimeFullList = 60 
-displayTimeList = 30
-displayTimeSingle = 10
 
 headers = {
 "Host": "query1.finance.yahoo.com:443",
@@ -371,6 +368,10 @@ def overViewIndices():
 write = sys.stdout.write
 
 config = minidom.parse('config.xml')
+
+displayTimeFullList = int(config.getElementsByTagName('displayTimeFullList')[0].firstChild.data)
+displayTimeList = int(config.getElementsByTagName('displayTimeList')[0].firstChild.data)
+displayTimeSingle = int(config.getElementsByTagName('displayTimeSingle')[0].firstChild.data)
 
 items = config.getElementsByTagName('item')
 indices = config.getElementsByTagName('index')

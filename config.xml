@@ -1,12 +1,44 @@
 <config>
     <assets>
-        <item name="Strabag">
-            <ticker>STR.VI</ticker>
-            <averagePrice>23.80</averagePrice>
+        <item name="Teamviewer">
+            <ticker>TMV.DE</ticker>
+            <averagePrice>20.08</averagePrice>
+        </item>
+	<item name="Uniqa">
+            <ticker>UQA.VI</ticker>
+            <averagePrice>8.92</averagePrice>
+        </item>
+	<item name="AMS AG">
+            <ticker>AMS.SW</ticker>
+            <averagePrice>14.316</averagePrice>
+        </item>
+	<item name="TUI">
+            <ticker>TUI1.DE</ticker>
+            <averagePrice>8.304</averagePrice>
+        </item>
+	<item name="Viscom">
+            <ticker>V6C.DE</ticker>
+            <averagePrice>23.7</averagePrice>
+        </item>
+	<item name="RWE">
+            <ticker>RWE.F</ticker>
+            <averagePrice>23.16</averagePrice>
+        </item>
+	<item name="Bank of America">
+            <ticker>BAC</ticker>
+            <averagePrice>34.674</averagePrice>
+        </item>
+	<item name="Grenke">
+            <ticker>GLJ.DE</ticker>
+            <averagePrice>20.64</averagePrice>
+        </item>
+	<item name="Altria">
+            <ticker>PHM7.DE</ticker>
+            <averagePrice>41.585</averagePrice>
         </item>
         <item name="General Electric">
             <ticker>GE</ticker>
-            <averagePrice>23.45</averagePrice>
+            <averagePrice>13.4558</averagePrice>
         </item>
     </assets>
     <indices>
@@ -32,5 +64,10 @@
             <ticker>BTC-EUR</ticker>
         </index>
     </indices>
+    <settings>
+        <displayTimeFullList> 60 </displayTimeFullList>
+        <displayTimeList> 30 </displayTimeList>
+        <displayTimeSingle> 10 </displayTimeSingle>
+    </settings>
 </config>
 
