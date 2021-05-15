@@ -361,10 +361,6 @@ def overViewIndices():
             time.sleep(displayTimeList)
                 
                 
-#msft = yf.Ticker("GE")
-#asset_json = msft.info
-#print(asset_json)
-
 write = sys.stdout.write
 
 config = minidom.parse('config.xml')
