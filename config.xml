@@ -1,0 +1,36 @@
+<config>
+    <assets>
+        <item name="Strabag">
+            <ticker>STR.VI</ticker>
+            <averagePrice>23.80</averagePrice>
+        </item>
+        <item name="General Electric">
+            <ticker>GE</ticker>
+            <averagePrice>23.45</averagePrice>
+        </item>
+    </assets>
+    <indices>
+        <index name="DAX">
+            <ticker>^GDAXI</ticker>
+        </index>
+        <index name="ATX">
+            <ticker>^ATX</ticker>
+        </index>
+        <index name="DOW">
+            <ticker>^DJI</ticker>
+        </index>
+        <index name="NASDAQ">
+            <ticker>^IXIC</ticker>
+        </index>
+        <index name="ESTOXX50">
+            <ticker>^STOXX50E</ticker>
+        </index>
+        <index name="NIKKEI">
+            <ticker>^N225</ticker>
+        </index>
+        <index name="BTC">
+            <ticker>BTC-EUR</ticker>
+        </index>
+    </indices>
+</config>
+
