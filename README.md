@@ -1,4 +1,4 @@
-# shellrespository
+# shellrepository
 
 Script for fetching different share prices and share index prices into different table layouts
 Data is fetched from yahoo finance so every ticker from there will work in config.xml
