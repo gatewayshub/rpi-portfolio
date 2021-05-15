@@ -13,3 +13,9 @@ Option -s:
 Option -o:
 
 ![shellportfolioooption](https://user-images.githubusercontent.com/80522869/118376560-f432f900-b5c8-11eb-84b1-af035a64a548.jpg)
+
+Option -s and -o fetches also the indices:
+
+![shellportfolioindex](https://user-images.githubusercontent.com/80522869/118376637-7fac8a00-b5c9-11eb-84d9-8f29f0dde1b6.jpg)
+
+I also use Option -s and -o for displaying share prices on a Raspberry Pi with a small 3,5" display :)
