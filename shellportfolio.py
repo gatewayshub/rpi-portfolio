@@ -121,7 +121,7 @@ def tableView():
          ,profitColored\
          ,profitTotalColored])
    
-    ttotal = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
+    ttotal = PrettyTable(['Name'.ljust(12), ''.ljust(10), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
     ttotal.align = "l"
 
     totalPercToday = portfolioPrice / portfolioPrevClose * 100 - 100  
@@ -150,8 +150,8 @@ def tableView():
         totalProfitColored = str(round(totalProfit,2))
     
     ttotal.add_row(["Total".ljust(12)\
-     ,str(portfolioPrice).ljust(10)\
      ," ".ljust(10)\
+     ,str(portfolioPrice).ljust(10)\
      ," ".ljust(3)\
      ,totalPercTodayColored\
      ,portfolioAvgPrice\
