@@ -41,8 +41,8 @@ def getAsset(symbol):
     return assetJson
 
 def tableView():
-    t = PrettyTable(['Name'.ljust(12), 'Letzter'.ljust(10), ''.ljust(3), '%'.ljust(10), 'Kauf'.ljust(10), 'Gewinn'.ljust(10)])
-    #t = PrettyTable(['Name', 'Letzter', '', '%', 'Kauf', 'Gewinn'])
+    t = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
+    
     t.align = "l"
     t.sortby = "Name".ljust(12)
 
@@ -64,7 +64,9 @@ def tableView():
                 break
                 
         averagePriceNode = item.getElementsByTagName('averagePrice')
-        averagePrice = averagePriceNode[0].firstChild.data
+        averagePrice = float(averagePriceNode[0].firstChild.data)
+        shareCountNode = item.getElementsByTagName('shareCount')
+        shareCount = int(shareCountNode[0].firstChild.data)
         
         regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
         regularMarketPreviousClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
@@ -82,7 +84,7 @@ def tableView():
         else:
             percTodayColored = str(round(percToday,2))
 
-        profit = regularMarketPrice / float(averagePrice) * 100 - 100
+        profit = regularMarketPrice / averagePrice * 100 - 100
     
         if profit < 0:
             profitColored = bcolors.FAIL + str(round(profit, 2)) + bcolors.ENDC
@@ -91,14 +93,25 @@ def tableView():
         else:
             profitColored = str(round(profit,2))
 
+        profitTotal = (regularMarketPrice - averagePrice) * shareCount
+
+        if profitTotal < 0:
+            profitTotalColored = bcolors.FAIL + str(round(profitTotal,2)) + bcolors.ENDC
+        elif profitTotal > 0:
+            profitTotalColored = bcolors.OKGREEN + str(round(profitTotal,2)) + bcolors.ENDC
+        else:
+            profitTotalColored = str(round(profitTotal,2))
+            
+
         t.add_row([str(name)[0:11].ljust(12)\
          ,str(regularMarketPrice)[0:9].ljust(10)\
          ,currency[0:3].ljust(3)\
          ,percTodayColored\
-         ,averagePrice[0:9].ljust(10)\
-         ,profitColored])
+         ,str(averagePrice)[0:9].ljust(10)\
+         ,profitColored\
+         ,profitTotalColored])
     
-    t2 = PrettyTable(['Index'.ljust(12), 'Letzter'.ljust(10), ''.ljust(3), '%'.ljust(10)])
+    t2 = PrettyTable(['Index'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10)])
     t2.align = "l"
     t2.sortby = "Index".ljust(12)
 
@@ -179,7 +192,9 @@ def singleView():
                 break
 
         averagePriceNode = item.getElementsByTagName('averagePrice')
-        averagePrice = averagePriceNode[0].firstChild.data
+        averagePrice = float(averagePriceNode[0].firstChild.data)
+        shareCountNode = item.getElementsByTagName('shareCount')
+        shareCount = int(shareCountNode[0].firstChild.data)
         
         regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
         regularMarketPreviousClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
@@ -198,7 +213,7 @@ def singleView():
         else:
             percTodayColored = str(round(percToday,2))
 
-        profit = regularMarketPrice / float(averagePrice) * 100 - 100
+        profit = regularMarketPrice / averagePrice * 100 - 100
 
         if profit < 0:
             profitColored = bcolors.FAIL + str(round(profit, 2)) + bcolors.ENDC
@@ -207,6 +222,15 @@ def singleView():
         else:
             profitColored = str(round(profit,2))
 
+        profitTotal = (regularMarketPrice - averagePrice) * shareCount
+
+        if profitTotal < 0:
+            profitTotalColored = bcolors.FAIL + str(round(profitTotal,2)) + bcolors.ENDC
+        elif profitTotal > 0:
+            profitTotalColored = bcolors.OKGREEN + str(round(profitTotal,2)) + bcolors.ENDC
+        else:
+            profitTotalColored = str(round(profitTotal,2))
+
         headerName = name[0:11].ljust(12)
         headerPrice = str(regularMarketPrice).ljust(10)
         t = PrettyTable([headerName, headerPrice])
@@ -214,10 +238,12 @@ def singleView():
 
         t._max_width = {'headerName' : 12, 'headerPrice' : 10 } 
         
-        t.add_row(["percToday" ,percTodayColored])
-        t.add_row(["averagePrice", averagePrice])
-        t.add_row(["currency", currency])
-        t.add_row(["profit", profitColored])
+        t.add_row(["Today%" ,percTodayColored])
+        t.add_row(["Avg. price", averagePrice])
+        t.add_row(["Currency", currency])
+        t.add_row(["Profit%", profitColored])
+        t.add_row(["Profit", profitTotalColored])
+        t.add_row(["Shares", shareCount])
         
         os.system('clear')
         print(t)
@@ -227,7 +253,7 @@ def singleView():
 def overView():
     lines = 7
     count = 0
-    t = PrettyTable(['Name', 'today%'.ljust(10)])
+    t = PrettyTable(['Name', 'Today%'.ljust(10)])
     t.align = "l"
     t._max_width = {'Name' : 12, 'today%' : 10 } 
     
@@ -250,9 +276,6 @@ def overView():
             else:
                 break
 
-        averagePriceNode = item.getElementsByTagName('averagePrice')
-        averagePrice = averagePriceNode[0].firstChild.data
-        
         regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
         regularMarketPreviousClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
         
@@ -297,7 +320,7 @@ def overView():
 def overViewIndices():
     lines = 7
     count = 0
-    t = PrettyTable(['Name', 'today%'.ljust(10)])
+    t = PrettyTable(['Name', 'Today%'.ljust(10)])
     t.align = "l"
     t._max_width = {'Name' : 12, 'today%' : 10 } 
    
