@@ -450,7 +450,7 @@ try:
 except getopt.GetoptError:
     print 'testticker.py -slo'
     sys.exit(2)
-tableView()
+
 for opt, arg in opts:
     if opt == '-o':
         while True:
