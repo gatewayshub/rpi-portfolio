@@ -7,16 +7,16 @@ option -l:
 
 ![shellportfolio1](https://user-images.githubusercontent.com/80522869/118376479-62c38700-b5c8-11eb-968a-227a1d2a375e.jpg)
 
-Option -s:
+option -s:
 
 ![shellportfoliosoption](https://user-images.githubusercontent.com/80522869/118376548-e1202900-b5c8-11eb-80d5-42a30d257069.jpg)
 
-Option -o:
+option -o:
 
 ![shellportfolioooption](https://user-images.githubusercontent.com/80522869/118376560-f432f900-b5c8-11eb-84b1-af035a64a548.jpg)
 
-Option -s and -o fetches also the indices:
+option -s and -o fetches also the indices:
 
 ![shellportfolioindex](https://user-images.githubusercontent.com/80522869/118376637-7fac8a00-b5c9-11eb-84d9-8f29f0dde1b6.jpg)
 
-I also use Option -s and -o for displaying share prices on a Raspberry Pi with a small 3,5" display :)
+I also use option -s and -o for displaying share prices on a Raspberry Pi with a small 3,5" display :)
