@@ -3,9 +3,11 @@
 Script for fetching different share prices and share index prices into different table layouts
 Data is fetched from yahoo finance so every ticker from there will work in config.xml
 
+Multicurrency is not supported by now... keep only tickers with the same currency in config!
+
 option -l:
 
-![shellportfolio1](https://user-images.githubusercontent.com/80522869/118376479-62c38700-b5c8-11eb-968a-227a1d2a375e.jpg)
+![shellportfolio_1](https://user-images.githubusercontent.com/80522869/118538929-1b1b3780-b74f-11eb-91bb-e71be624e1e3.JPG)
 
 option -s:
 
