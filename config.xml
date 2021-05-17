@@ -1,10 +1,5 @@
 <config>
     <assets>
-        <item name="General Electric">
-            <ticker>GE</ticker>
-            <averagePrice>12.48</averagePrice>
-            <shareCount>480</shareCount>
-        </item>
         <item name="JD.com">
             <ticker>013C.F</ticker>
             <averagePrice>25.05</averagePrice>

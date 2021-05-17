@@ -41,7 +41,7 @@ def getAsset(symbol):
     return assetJson
 
 def tableView():
-    t = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
+    t = PrettyTable(['Name'.ljust(12), 'Last Shr.'.ljust(10), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
     
     t.align = "l"
     t.sortby = "Name".ljust(12)
@@ -76,6 +76,7 @@ def tableView():
         regularMarketPreviousClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
         
         name = item.getAttribute('name')
+        lastValue = round(regularMarketPrice * shareCount, 2)
 
         portfolioPrice += regularMarketPrice * shareCount
         portfolioAvgPrice += averagePrice * shareCount
@@ -113,13 +114,14 @@ def tableView():
 
         t.add_row([str(name)[0:11].ljust(12)\
          ,str(regularMarketPrice)[0:9].ljust(10)\
+         ,str(lastValue)[0:9].ljust(10)\
          ,currency[0:3].ljust(3)\
          ,percTodayColored\
          ,str(averagePrice)[0:9].ljust(10)\
          ,profitColored\
          ,profitTotalColored])
    
-    ttotal = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
+    ttotal = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
     ttotal.align = "l"
 
     totalPercToday = portfolioPrice / portfolioPrevClose * 100 - 100  
@@ -149,7 +151,8 @@ def tableView():
     
     ttotal.add_row(["Total".ljust(12)\
      ,str(portfolioPrice).ljust(10)\
-     ,"---".ljust(3)\
+     ," ".ljust(10)\
+     ," ".ljust(3)\
      ,totalPercTodayColored\
      ,portfolioAvgPrice\
      ,totalProfitColored\
