@@ -1,44 +1,29 @@
 <config>
     <assets>
-        <item name="Teamviewer">
-            <ticker>TMV.DE</ticker>
-            <averagePrice>20.08</averagePrice>
-        </item>
-	<item name="Uniqa">
-            <ticker>UQA.VI</ticker>
-            <averagePrice>8.92</averagePrice>
-        </item>
-	<item name="AMS AG">
-            <ticker>AMS.SW</ticker>
-            <averagePrice>14.316</averagePrice>
-        </item>
-	<item name="TUI">
-            <ticker>TUI1.DE</ticker>
-            <averagePrice>8.304</averagePrice>
-        </item>
-	<item name="Viscom">
-            <ticker>V6C.DE</ticker>
-            <averagePrice>23.7</averagePrice>
-        </item>
-	<item name="RWE">
-            <ticker>RWE.F</ticker>
-            <averagePrice>23.16</averagePrice>
-        </item>
-	<item name="Bank of America">
-            <ticker>BAC</ticker>
-            <averagePrice>34.674</averagePrice>
-        </item>
-	<item name="Grenke">
-            <ticker>GLJ.DE</ticker>
-            <averagePrice>20.64</averagePrice>
-        </item>
-	<item name="Altria">
-            <ticker>PHM7.DE</ticker>
-            <averagePrice>41.585</averagePrice>
-        </item>
         <item name="General Electric">
             <ticker>GE</ticker>
-            <averagePrice>13.4558</averagePrice>
+            <averagePrice>12.48</averagePrice>
+            <shareCount>480</shareCount>
+        </item>
+        <item name="JD.com">
+            <ticker>013C.F</ticker>
+            <averagePrice>25.05</averagePrice>
+            <shareCount>30</shareCount>
+        </item>
+        <item name="NIO">
+            <ticker>N3IA.F</ticker>
+            <averagePrice>23.93</averagePrice>
+            <shareCount>50</shareCount>
+        </item>
+        <item name="NEL">
+            <ticker>D7G.F</ticker>
+            <averagePrice>1.531</averagePrice>
+            <shareCount>400</shareCount>
+        </item>
+        <item name="Anheuser-Busch Inbev">
+            <ticker>1NBA.DE</ticker>
+            <averagePrice>51.98</averagePrice>
+            <shareCount>20</shareCount>
         </item>
     </assets>
     <indices>

@@ -45,6 +45,10 @@ def tableView():
     
     t.align = "l"
     t.sortby = "Name".ljust(12)
+    
+    portfolioPrice = 0
+    portfolioAvgPrice = 0
+    portfolioPrevClose = 0
 
     for item in items:
         tickerNode = item.getElementsByTagName('ticker')
@@ -72,6 +76,10 @@ def tableView():
         regularMarketPreviousClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
         
         name = item.getAttribute('name')
+
+        portfolioPrice += regularMarketPrice * shareCount
+        portfolioAvgPrice += averagePrice * shareCount
+        portfolioPrevClose += regularMarketPreviousClose * shareCount
         
         currency = assetJson['quoteResponse']['result'][0]['currency']
 
@@ -110,7 +118,44 @@ def tableView():
          ,str(averagePrice)[0:9].ljust(10)\
          ,profitColored\
          ,profitTotalColored])
+   
+    ttotal = PrettyTable(['Name'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
+    ttotal.align = "l"
+
+    totalPercToday = portfolioPrice / portfolioPrevClose * 100 - 100  
+    totalProfitTotal = portfolioPrice - portfolioAvgPrice
+    totalProfit = portfolioPrice / portfolioAvgPrice * 100 - 100
     
+    if totalPercToday < 0:
+        totalPercTodayColored = bcolors.FAIL + str(round(totalPercToday,2)) + bcolors.ENDC
+    elif totalPercToday > 0:
+        totalPercTodayColored = bcolors.OKGREEN + str(round(totalPercToday,2)) + bcolors.ENDC
+    else:
+        totalPercTodayColored = str(round(totalPercToday,2))
+        
+    if totalProfitTotal < 0:
+        totalProfitTotalColored = bcolors.FAIL + str(round(totalProfitTotal,2)) + bcolors.ENDC
+    elif totalProfitTotal > 0:
+        totalProfitTotalColored = bcolors.OKGREEN + str(round(totalProfitTotal,2)) + bcolors.ENDC
+    else:
+        totalProfitTotalColored = str(round(totalProfitTotal,2))
+        
+    if totalProfit < 0:
+        totalProfitColored = bcolors.FAIL + str(round(totalProfit,2)) + bcolors.ENDC
+    elif totalProfit > 0:
+        totalProfitColored = bcolors.OKGREEN + str(round(totalProfit,2)) + bcolors.ENDC
+    else:
+        totalProfitColored = str(round(totalProfit,2))
+    
+    ttotal.add_row(["Total".ljust(12)\
+     ,str(portfolioPrice).ljust(10)\
+     ,"---".ljust(3)\
+     ,totalPercTodayColored\
+     ,portfolioAvgPrice\
+     ,totalProfitColored\
+     ,totalProfitTotalColored])
+
+
     t2 = PrettyTable(['Index'.ljust(12), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10)])
     t2.align = "l"
     t2.sortby = "Index".ljust(12)
@@ -157,6 +202,7 @@ def tableView():
     
     os.system('clear')
     print(t) 
+    print(ttotal)
     print(t2)
     x = displayTimeFullList
     write("Update in ")
@@ -404,7 +450,7 @@ try:
 except getopt.GetoptError:
     print 'testticker.py -slo'
     sys.exit(2)
-
+tableView()
 for opt, arg in opts:
     if opt == '-o':
         while True:
