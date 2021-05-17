@@ -2,6 +2,7 @@
 
 Script for fetching different share prices and share index prices into different table layouts
 Data is fetched from yahoo finance so every ticker from there will work in config.xml
+Because this script uses yahoo finance tickers please have a look at the terms of use.
 
 Multicurrency is not supported by now... keep only tickers with the same currency in config!
 
