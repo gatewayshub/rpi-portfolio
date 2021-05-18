@@ -6,6 +6,8 @@ Because this script uses yahoo finance tickers please have a look at the terms o
 
 Multicurrency is not supported by now... keep only tickers with the same currency in config!
 
+./shellportfolio.py [option]
+
 option -l:
 
 ![shellportfolio_1](https://user-images.githubusercontent.com/80522869/118538929-1b1b3780-b74f-11eb-91bb-e71be624e1e3.JPG)
