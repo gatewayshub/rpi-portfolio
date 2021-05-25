@@ -225,7 +225,7 @@ flush()
 try:
     opts, args = getopt.getopt(sys.argv[1:],"slo")
 except getopt.GetoptError:
-    print 'testticker.py -slo'
+    print ('testticker.py -slo')
     sys.exit(2)
 
 for opt, arg in opts:
@@ -236,7 +236,7 @@ for opt, arg in opts:
                 overView()
                 portfolio.updatePortfolio()
             except KeyboardInterrupt:
-                print "Bye"
+                print ("Bye")
                 sys.exit()
             except SystemExit:
                 sys.exit()
@@ -249,7 +249,7 @@ for opt, arg in opts:
                 singleView()
                 portfolio.updatePortfolio()
             except KeyboardInterrupt:
-                print "Bye"
+                print ("Bye")
                 sys.exit()
             except SystemExit:
                 sys.exit()
@@ -261,7 +261,7 @@ for opt, arg in opts:
                 tableView()
                 portfolio.updatePortfolio()
             except KeyboardInterrupt:
-                print "Bye"
+                print ("Bye")
                 sys.exit()
             except SystemExit:
                 sys.exit()
