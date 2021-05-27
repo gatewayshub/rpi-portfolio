@@ -7,7 +7,6 @@ Because this script uses yahoo finance tickers please have a look at the terms o
 Multicurrency is not supported by now... keep only tickers with the same currency in config!
 
 ./portfoliograph.py
-Is starting in fullscreen mode
 
 ![portfoliograph](https://user-images.githubusercontent.com/80522869/119879741-d4d28f00-bf2b-11eb-9af2-3db6342321f5.jpg)
 
