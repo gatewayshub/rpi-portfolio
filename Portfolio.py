@@ -1,4 +1,3 @@
-from Asset import Asset
 from BColors import BColors
 
 class Portfolio(object):
