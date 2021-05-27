@@ -20,8 +20,8 @@ displayTimeSingle = int(config.getElementsByTagName('displayTimeSingle')[0].firs
 
 pygame.display.init()
 pygame.font.init()
-xResolution = 420
-yResolution = 320
+xResolution = int(config.getElementsByTagName('xResolution')[0].firstChild.data)
+yResolution = int(config.getElementsByTagName('yResolution')[0].firstChild.data)
 tableX1 = int(xResolution / 20)
 tableX2 = int(xResolution / 1.6)
 bgColor = (0,0,0)
@@ -30,15 +30,10 @@ contentColor = (235, 235, 235)
 redColor = (200, 0, 0)
 greenColor = (0, 200, 0)
 nameCut = 16
-screen = pygame.display.set_mode([xResolution,yResolution])
-#screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
+#screen = pygame.display.set_mode([xResolution,yResolution])
+screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
 
 portfolio = Portfolio()
-
-os.system('clear')
-write("\033[?25l")
-flush()
-
 
 def initializePortfolio():
     write("Initializing Portfolio... ")
@@ -91,7 +86,7 @@ def waitInputOrTimeout(seconds):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 done = True
 
-        dt = clock.tick(30) / 1000
+        dt = clock.tick(1) / 1000
 
         seconds -= dt
 
