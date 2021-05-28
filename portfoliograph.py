@@ -378,7 +378,6 @@ def tileView():
                     y = row * yDelta
                     displayTile(x, y, asset)
                     count += 1
-                    length -= 1
                     col += 1
 
                     if col == 3:
