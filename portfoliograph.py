@@ -23,13 +23,14 @@ pygame.font.init()
 xResolution = int(config.getElementsByTagName('xResolution')[0].firstChild.data)
 yResolution = int(config.getElementsByTagName('yResolution')[0].firstChild.data)
 tableX1 = int(xResolution / 20)
-tableX2 = int(xResolution / 1.6)
+tableX2 = int(xResolution / 1.4)
 bgColor = (0,0,0)
 headerColor = (255,225,1)
 contentColor = (235, 235, 235)
 redColor = (200, 0, 0)
 greenColor = (0, 200, 0)
 nameCut = 16
+fontName = pygame.font.SysFont('Arial', int(yResolution / 10))
 #screen = pygame.display.set_mode([xResolution,yResolution])
 screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
 
@@ -93,6 +94,14 @@ def waitInputOrTimeout(seconds):
         if seconds <= 0:
             done = True
 
+def getColorForValue(value):
+    if (value > 0):
+        return greenColor
+    elif (value < 0):
+        return redColor
+    else:
+        return contentColor
+
 def displayHeader(leftHeader, rightHeader):
     fontHeaderLeft = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
     textHeaderLeft = fontHeaderLeft.render(leftHeader, True, headerColor)
@@ -101,14 +110,6 @@ def displayHeader(leftHeader, rightHeader):
     fontHeaderRight = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
     textHeaderRight = fontHeaderRight.render(rightHeader, True, headerColor)
     screen.blit(textHeaderRight, (tableX2, int(yResolution / 20)))
-
-def getColorForValue(value):
-    if (value > 0):
-        return greenColor
-    elif (value < 0):
-        return redColor
-    else:
-        return contentColor
 
 def overViewAssetsGraph():
     length = len(portfolio.getAssetList())
@@ -124,11 +125,8 @@ def overViewAssetsGraph():
         name = asset.getName()
         percToday = asset.getPercToday()
 
-        fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
         textName = fontName.render(name[0:nameCut], True, contentColor)
         screen.blit(textName, (tableX1, ypos))
-
-        fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
         textName = fontName.render(str(round(percToday, 3)), True, getColorForValue(percToday))
         screen.blit(textName, (tableX2, ypos))
 
@@ -157,11 +155,8 @@ def overViewAssetsGraph():
                     name = asset.getName()
                     percToday = asset.getPercToday()
 
-                    fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
                     textName = fontName.render(name[0:nameCut], True, contentColor)
                     screen.blit(textName, (tableX1, ypos))
-
-                    fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
                     textName = fontName.render(str(round(percToday, 3)), True, getColorForValue(percToday))
                     screen.blit(textName, (tableX2, ypos))
 
@@ -197,11 +192,8 @@ def overViewIndicesGraph():
         name = index.getName()
         percToday = index.getPercToday()
 
-        fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
         textName = fontName.render(name[0:nameCut], True, contentColor)
         screen.blit(textName, (tableX1, ypos))
-
-        fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
         textName = fontName.render(str(round(percToday,3)), True, getColorForValue(percToday))
         screen.blit(textName, (tableX2, ypos))
 
@@ -230,11 +222,8 @@ def overViewIndicesGraph():
                     name = index.getName()
                     percToday = index.getPercToday()
 
-                    fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
                     textName = fontName.render(name[0:nameCut], True, contentColor)
                     screen.blit(textName, (tableX1, ypos))
-
-                    fontName = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
                     textName = fontName.render(str(round(percToday, 3)), True, getColorForValue(percToday))
                     screen.blit(textName, (tableX2, ypos))
 
@@ -251,6 +240,140 @@ def overViewIndicesGraph():
             if running == False:
                 break
 
+def displayTile(startPosX, startPosY, asset):
+    width = int(xResolution / 3)
+    height = int(yResolution / 3)
+
+    fontFactorHeader = int(yResolution / 20)
+    fontFactorData = int(yResolution / 20)
+    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
+    fontData = pygame.font.SysFont('Arial', fontFactorData)
+
+    textName = fontHeader.render(asset.getName()[0:12], True, contentColor)
+    textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
+    textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
+    textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),2)), True, contentColor)
+    textProfit = fontData.render(str(round(asset.getProfit(),2)), True, getColorForValue(asset.getProfit()))
+    textPercProfit = fontData.render(str(round(asset.getProfitPerc(),2)) + "%", True, getColorForValue(asset.getProfitPerc()))
+    #textSubHeader = fontData.render("Today",True,headerColor)
+    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
+    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
+
+
+    tableX1 = int(width / 20)
+    tableX2 = width - tableX1
+
+    ypos = int(height / 20) + startPosY
+    xpos = tableX1 + startPosX
+
+    textRect = textName.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textName, textRect)
+
+    ypos += int(fontFactorHeader + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textPriceToday.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textPriceToday, textRect)
+
+    xpos = tableX2 + startPosX
+
+    textRect = textPercToday.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPercToday, textRect)
+
+    ypos += int(fontFactorData + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textProfit.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textProfit, textRect)
+
+    xpos = tableX2 + startPosX
+
+    textRect = textPercProfit.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPercProfit, textRect)
+
+    ypos += int(fontFactorData + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textValueToday.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textValueToday, textRect)
+
+    pygame.display.flip()
+
+
+def tileView():
+    global running
+
+    screen.fill(bgColor)
+
+    length = len(portfolio.getAssetList())
+    count = 0
+    tiles = 9
+
+    assetList = portfolio.getAssetList()
+
+    xDelta = int(xResolution / 3)
+    yDelta = int(yResolution / 3)
+    row = 0
+    col = 0
+    x = 0
+    y = 0
+
+    for asset in assetList:
+
+        x = col * xDelta
+        y = row * yDelta
+        displayTile(x,y,asset)
+        count += 1
+        length -= 1
+        col += 1
+
+        if col == 3:
+            col = 0
+            row += 1
+
+        if row == 3:
+            col = 0
+            row = 0
+
+        if count >= tiles:
+            if length >= tiles:
+                waitInputOrTimeout(displayTimeList)
+                count = 0
+                screen.fill(bgColor)
+                if running == False:
+                    break
+            else:
+                waitInputOrTimeout(displayTimeList)
+                count = 0
+                screen.fill(bgColor)
+                #Fill the screen with old values
+                for asset in assetList[-tiles:-length]:
+                    x = col * xDelta
+                    y = row * yDelta
+                    displayTile(x, y, asset)
+                    count += 1
+                    length -= 1
+                    col += 1
+
+                    if col == 3:
+                        col = 0
+                        row += 1
+
+                    pygame.display.flip()
+                if running == False:
+                    break
+        if length == 0:
+            waitInputOrTimeout(displayTimeList)
+            count = 0
+            screen.fill(bgColor)
+            if running == False:
+                break
 
 def main():
     global running
@@ -265,6 +388,9 @@ def main():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
 
+
+        #tileView()
+        if running == False: break
         overViewIndicesGraph()
         if running == False: break
         overViewAssetsGraph()
