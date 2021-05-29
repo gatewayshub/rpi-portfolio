@@ -7,8 +7,11 @@ Because this script uses yahoo finance tickers please have a look at the terms o
 Multicurrency is not supported by now... keep only tickers with the same currency in config!
 
 portfoliograph.py -> pygame is used to output to screen
+
 shellportfolio.py -> prettytable is used to generate the table outputs
+
 Both use requests module to fetch data from yahoo webservice.
+
 Make sure all used modules are installed before using this scripts.
 
 ./portfoliograph.py -t
