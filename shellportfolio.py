@@ -219,8 +219,6 @@ def overViewIndices():
 
 def main():
 
-    initializePortfolio()
-
     try:
         opts, args = getopt.getopt(sys.argv[1:], "slo")
     except getopt.GetoptError:
@@ -230,6 +228,8 @@ def main():
     if len(sys.argv) != 2:
         print('shellportfolio.py -s|-l|-o')
         sys.exit(2)
+
+    initializePortfolio()
 
     for opt, arg in opts:
         if opt == '-o':

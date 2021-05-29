@@ -521,8 +521,6 @@ def main():
     global running, colCountTiles
     running = True
 
-    initializePortfolio()
-
     try:
         opts, args = getopt.getopt(sys.argv[1:], "toc:")
     except getopt.GetoptError:
@@ -532,6 +530,8 @@ def main():
     if len(sys.argv) != 2:
         print('portfoliograph.py -t|-o')
         sys.exit(2)
+
+    initializePortfolio()
 
     for opt, arg in opts:
         if opt == '-o':
