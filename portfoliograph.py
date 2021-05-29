@@ -28,7 +28,7 @@ tableX2 = int(xResolution - tableX1)
 bgColor = (0,0,0)
 headerColor = (255,225,1)
 contentColor = (235, 235, 235)
-redColor = (200, 0, 0)
+redColor = (200, 50, 50)
 greenColor = (0, 200, 0)
 nameCut = 16
 fontName = pygame.font.SysFont('Arial', int(yResolution / 10))
@@ -270,7 +270,7 @@ def displayTile(startPosX, startPosY, asset):
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
-    textName = fontHeader.render(asset.getName()[0:12], True, contentColor)
+    textName = fontHeader.render(asset.getName()[0:12], True, headerColor)
     textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
     textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
     textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
@@ -326,6 +326,51 @@ def displayTile(startPosX, startPosY, asset):
 
     pygame.display.flip()
 
+def displayTileIndex(startPosX, startPosY, index):
+    width = int(xResolution / 3)
+    height = int(yResolution / 3)
+
+    fontFactorHeader = int(yResolution / 20)
+    fontFactorData = int(yResolution / 20)
+    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader + 5)
+    fontData = pygame.font.SysFont('Arial', fontFactorData + 5)
+
+    textName = fontHeader.render(index.getName()[0:12], True, headerColor)
+    textPriceToday = fontData.render(str(round(index.getRegularMarketPrice(),2)), True, contentColor)
+    textPercToday = fontData.render(str(round(index.getPercToday(),2)) + "%", True, getColorForValue(index.getPercToday()))
+    #textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
+    #textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
+    #textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
+    #textSubHeader = fontData.render("Today",True,headerColor)
+    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
+    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
+
+    center = int(width / 2)
+    #tableX1 = int(width / 20)
+    #tableX2 = width - tableX1
+
+    ypos = int(height / 20) + startPosY
+    xpos = center + startPosX
+
+    textRect = textName.get_rect()
+    textRect.topleft = (xpos - int(textRect.width / 2), ypos)
+    screen.blit(textName, textRect)
+
+    ypos += int(fontFactorHeader + 2)
+    xpos = center + startPosX
+
+    textRect = textPriceToday.get_rect()
+    textRect.topleft = (xpos - int(textRect.width / 2), ypos)
+    screen.blit(textPriceToday, textRect)
+
+    ypos += int(fontFactorHeader + 2)
+    xpos = center + startPosX
+
+    textRect = textPercToday.get_rect()
+    textRect.topleft = (xpos - int(textRect.width / 2), ypos)
+    screen.blit(textPercToday, textRect)
+
+    pygame.display.flip()
 
 def tileView():
     global running
@@ -395,6 +440,75 @@ def tileView():
             if running == False:
                 break
 
+def tileViewIndices():
+    global running
+
+    screen.fill(bgColor)
+
+    length = len(portfolio.getAssetList())
+    count = 0
+    tiles = 9
+
+    indicesList = portfolio.getIndicesList()
+
+    xDelta = int(xResolution / 3)
+    yDelta = int(yResolution / 3)
+    row = 0
+    col = 0
+    x = 0
+    y = 0
+
+    for index in indicesList:
+
+        x = col * xDelta
+        y = row * yDelta
+        displayTileIndex(x, y, index)
+        count += 1
+        length -= 1
+        col += 1
+
+        if col == 3:
+            col = 0
+            row += 1
+
+        if row == 3:
+            col = 0
+            row = 0
+
+        if count >= tiles:
+            if length >= tiles:
+                waitInputOrTimeout(displayTimeList)
+                count = 0
+                screen.fill(bgColor)
+                if running == False:
+                    break
+            else:
+                waitInputOrTimeout(displayTimeList)
+                count = 0
+                screen.fill(bgColor)
+                # Fill the screen with old values
+                for index in indicesList[-tiles:-length]:
+                    x = col * xDelta
+                    y = row * yDelta
+                    displayTileIndex(x, y, index)
+                    count += 1
+                    col += 1
+
+                    if col == 3:
+                        col = 0
+                        row += 1
+
+                    pygame.display.flip()
+                if running == False:
+                    break
+        if length == 0:
+            waitInputOrTimeout(displayTimeList)
+            count = 0
+            screen.fill(bgColor)
+            if running == False:
+                break
+
+
 def main():
     global running
     running = True
@@ -431,6 +545,7 @@ def main():
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         running = False
 
+                tileViewIndices()
                 tileView()
                 if running == False: break
                 portfolio.updatePortfolio()
