@@ -32,6 +32,8 @@ contentColor = (235, 235, 235)
 redColor = (200, 50, 50)
 greenColor = (0, 200, 0)
 nameCut = 16
+colCountTiles = 3
+rowCountTiles = 3
 fontName = pygame.font.SysFont('Arial', int(yResolution / 10))
 #screen = pygame.display.set_mode([xResolution,yResolution])
 screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
@@ -263,11 +265,16 @@ def overViewIndicesGraph():
                 break
 
 def displayTile(startPosX, startPosY, asset):
-    width = int(xResolution / 2)
-    height = int(yResolution / 3)
+    width = int(xResolution / colCountTiles)
+    height = int(yResolution / rowCountTiles)
 
-    fontFactorHeader = int(yResolution / 15)
-    fontFactorData = int(yResolution / 15)
+    if colCountTiles == 2:
+        tilesFactor = 15
+    if colCountTiles == 3:
+        tilesFactor = 20
+
+    fontFactorHeader = int(yResolution / tilesFactor)
+    fontFactorData = int(yResolution / tilesFactor)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
@@ -380,12 +387,12 @@ def tileView():
 
     length = len(portfolio.getAssetList())
     count = 0
-    tiles = 6
+    tiles = colCountTiles * rowCountTiles
 
     assetList = portfolio.getAssetList()
 
-    xDelta = int(xResolution / 2)
-    yDelta = int(yResolution / 3)
+    xDelta = int(xResolution / colCountTiles)
+    yDelta = int(yResolution / rowCountTiles)
     row = 0
     col = 0
     x = 0
@@ -400,11 +407,11 @@ def tileView():
         length -= 1
         col += 1
 
-        if col == 2:
+        if col == colCountTiles:
             col = 0
             row += 1
 
-        if row == 3:
+        if row == rowCountTiles:
             col = 0
             row = 0
 
@@ -427,7 +434,7 @@ def tileView():
                     count += 1
                     col += 1
 
-                    if col == 2:
+                    if col == colCountTiles:
                         col = 0
                         row += 1
 
@@ -511,14 +518,18 @@ def tileViewIndices():
 
 
 def main():
-    global running
+    global running, colCountTiles
     running = True
 
     initializePortfolio()
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "to")
+        opts, args = getopt.getopt(sys.argv[1:], "toc:")
     except getopt.GetoptError:
+        print('portfoliograph.py -t|-o')
+        sys.exit(2)
+
+    if len(sys.argv) != 2:
         print('portfoliograph.py -t|-o')
         sys.exit(2)
 
@@ -538,7 +549,12 @@ def main():
                 portfolio.updatePortfolio()
                 if running == False: break
 
-        elif opt == '-t':
+        elif opt == '-t' or opt == '-c':
+            print(arg)
+            if arg == '2' or arg == '3':
+                colCountTiles = int(arg)
+            else:
+                colCountTiles = 3
             while running:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:

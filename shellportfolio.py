@@ -224,7 +224,11 @@ def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "slo")
     except getopt.GetoptError:
-        print('testticker.py -s|-l|-o')
+        print('shellportfolio.py -s|-l|-o')
+        sys.exit(2)
+
+    if len(sys.argv) != 2:
+        print('shellportfolio.py -s|-l|-o')
         sys.exit(2)
 
     for opt, arg in opts:
