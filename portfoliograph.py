@@ -21,6 +21,7 @@ displayTimeSingle = int(config.getElementsByTagName('displayTimeSingle')[0].firs
 
 pygame.display.init()
 pygame.font.init()
+pygame.mouse.set_visible(False)
 xResolution = int(config.getElementsByTagName('xResolution')[0].firstChild.data)
 yResolution = int(config.getElementsByTagName('yResolution')[0].firstChild.data)
 tableX1 = int(xResolution / 20)
@@ -262,11 +263,11 @@ def overViewIndicesGraph():
                 break
 
 def displayTile(startPosX, startPosY, asset):
-    width = int(xResolution / 3)
+    width = int(xResolution / 2)
     height = int(yResolution / 3)
 
-    fontFactorHeader = int(yResolution / 20)
-    fontFactorData = int(yResolution / 20)
+    fontFactorHeader = int(yResolution / 15)
+    fontFactorData = int(yResolution / 15)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
@@ -379,11 +380,11 @@ def tileView():
 
     length = len(portfolio.getAssetList())
     count = 0
-    tiles = 9
+    tiles = 6
 
     assetList = portfolio.getAssetList()
 
-    xDelta = int(xResolution / 3)
+    xDelta = int(xResolution / 2)
     yDelta = int(yResolution / 3)
     row = 0
     col = 0
@@ -399,7 +400,7 @@ def tileView():
         length -= 1
         col += 1
 
-        if col == 3:
+        if col == 2:
             col = 0
             row += 1
 
@@ -426,7 +427,7 @@ def tileView():
                     count += 1
                     col += 1
 
-                    if col == 3:
+                    if col == 2:
                         col = 0
                         row += 1
 
