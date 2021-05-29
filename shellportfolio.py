@@ -224,7 +224,7 @@ def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "slo")
     except getopt.GetoptError:
-        print('testticker.py -slo')
+        print('testticker.py -s|-l|-o')
         sys.exit(2)
 
     for opt, arg in opts:
@@ -241,7 +241,7 @@ def main():
                     sys.exit()
                 except:
                     print("Exception occured")
-        if opt == '-s':
+        elif opt == '-s':
             while True:
                 try:
                     overViewIndices()

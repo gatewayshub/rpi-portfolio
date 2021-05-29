@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import getopt
 import sys
 import time
 import pygame
@@ -400,22 +401,40 @@ def main():
 
     initializePortfolio()
 
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                running = False
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "to")
+    except getopt.GetoptError:
+        print('portfoliograph.py -t|-o')
+        sys.exit(2)
 
+    for opt, arg in opts:
+        if opt == '-o':
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        running = False
 
-        #tileView()
-        if running == False: break
-        overViewIndicesGraph()
-        if running == False: break
-        overViewAssetsGraph()
-        if running == False: break
-        portfolio.updatePortfolio()
-        if running == False: break
+                overViewIndicesGraph()
+                if running == False: break
+                overViewAssetsGraph()
+                if running == False: break
+                portfolio.updatePortfolio()
+                if running == False: break
+
+        elif opt == '-t':
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                        running = False
+
+                tileView()
+                if running == False: break
+                portfolio.updatePortfolio()
+                if running == False: break
 
 
     pygame.quit()
