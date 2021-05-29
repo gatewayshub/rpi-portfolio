@@ -546,11 +546,11 @@ def main():
                         running = False
 
                 tileViewIndices()
+                if running == False: break
                 tileView()
                 if running == False: break
                 portfolio.updatePortfolio()
                 if running == False: break
-
 
     pygame.quit()
     sys.exit(0)
