@@ -54,7 +54,7 @@ def initializePortfolio():
         averagePriceNode = item.getElementsByTagName('averagePrice')
         averagePrice = float(averagePriceNode[0].firstChild.data)
         shareCountNode = item.getElementsByTagName('shareCount')
-        shareCount = int(shareCountNode[0].firstChild.data)
+        shareCount = float(shareCountNode[0].firstChild.data)
 
         name = item.getAttribute('name')
 
@@ -550,7 +550,6 @@ def main():
                 if running == False: break
 
         elif opt == '-t' or opt == '-c':
-            print(arg)
             if arg == '2' or arg == '3':
                 colCountTiles = int(arg)
             else:
