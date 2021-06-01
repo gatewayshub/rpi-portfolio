@@ -59,7 +59,6 @@ def initializePortfolio():
     write("done")
     flush()
 
-
 def tableView():
     t = PrettyTable(['Name'.ljust(12), 'Last Shr.'.ljust(10), 'Last'.ljust(10), ''.ljust(3), 'Today%'.ljust(10), 'Avg. price'.ljust(10), 'Profit%'.ljust(10), 'Profit'.ljust(10)])
 
@@ -141,7 +140,6 @@ def singleView():
         print(t)
         time.sleep(displayTimeSingle)
 
-
 def overView():
     lines = 7
     count = 0
@@ -178,7 +176,6 @@ def overView():
             os.system('clear')
             print(t)
             time.sleep(displayTimeList)
-
 
 def overViewIndices():
     lines = 7

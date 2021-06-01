@@ -471,7 +471,7 @@ def tileViewIndices():
 
     screen.fill(bgColor)
 
-    length = len(portfolio.getAssetList())
+    length = len(portfolio.getIndicesList())
     count = 0
     tiles = 9
 
@@ -546,7 +546,7 @@ def main():
         sys.exit(2)
 
     if len(sys.argv) != 2:
-        print('portfoliograph.py -t|-o')
+        print('portfoliograph.py -t|-o|-c2|-c3')
         sys.exit(2)
 
     initializePortfolio()
