@@ -459,12 +459,7 @@ def tileView():
                     pygame.display.flip()
                 if running == False:
                     break
-        if length == 0:
-            waitInputOrTimeout(displayTimeList)
-            count = 0
-            screen.fill(bgColor)
-            if running == False:
-                break
+
 
 def tileViewIndices():
     global running
@@ -527,13 +522,6 @@ def tileViewIndices():
                     pygame.display.flip()
                 if running == False:
                     break
-        if length == 0:
-            waitInputOrTimeout(displayTimeList)
-            count = 0
-            screen.fill(bgColor)
-            if running == False:
-                break
-
 
 def main():
     global running, colCountTiles
