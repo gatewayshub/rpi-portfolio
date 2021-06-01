@@ -278,7 +278,16 @@ def displayTile(startPosX, startPosY, asset):
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
-    textName = fontHeader.render(asset.getName()[0:12], True, headerColor)
+    textNameFitting = False
+    length = len(asset.getName())
+
+    while not textNameFitting:
+        textName = fontHeader.render(asset.getName()[0:length], True, headerColor)
+        if textName.get_rect().width <= (width - (width / 20)):
+            textNameFitting = True
+        else:
+            length -= 1
+
     textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
     textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
     textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
@@ -343,7 +352,16 @@ def displayTileIndex(startPosX, startPosY, index):
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader + 5)
     fontData = pygame.font.SysFont('Arial', fontFactorData + 5)
 
-    textName = fontHeader.render(index.getName()[0:12], True, headerColor)
+    textNameFitting = False
+    length = len(index.getName())
+
+    while not textNameFitting:
+        textName = fontHeader.render(index.getName()[0:length], True, headerColor)
+        if textName.get_rect().width <= (width - (width / 20)):
+            textNameFitting = True
+        else:
+            length -= 1
+
     textPriceToday = fontData.render(str(round(index.getRegularMarketPrice(),2)), True, contentColor)
     textPercToday = fontData.render(str(round(index.getPercToday(),2)) + "%", True, getColorForValue(index.getPercToday()))
     #textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
