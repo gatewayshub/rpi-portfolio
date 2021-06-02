@@ -2,33 +2,33 @@
     <assets>
         <item name="Teamviewer">
             <ticker>TMV.DE</ticker>
-            <averagePrice>32.08</averagePrice>
-            <shareCount>320</shareCount>
+            <averagePrice>35.08</averagePrice>
+            <shareCount>140</shareCount>
         </item>
         <item name="Uniqa">
             <ticker>UQA.VI</ticker>
-            <averagePrice>8.919</averagePrice>
-            <shareCount>500</shareCount>
+            <averagePrice>6.919</averagePrice>
+            <shareCount>700</shareCount>
         </item>
         <item name="AMS AG">
             <ticker>AMS.VI</ticker>
-            <averagePrice>10</averagePrice>
-            <shareCount>300</shareCount>
+            <averagePrice>9</averagePrice>
+            <shareCount>400</shareCount>
         </item>
         <item name="TUI">
             <ticker>TUI1.DE</ticker>
-            <averagePrice>2.797</averagePrice>
-            <shareCount>1100</shareCount>
+            <averagePrice>3.797</averagePrice>
+            <shareCount>370</shareCount>
         </item>
         <item name="Viscom">
             <ticker>V6C.DE</ticker>
-            <averagePrice>8.7</averagePrice>
-            <shareCount>300</shareCount>
+            <averagePrice>8.758</averagePrice>
+            <shareCount>200</shareCount>
         </item>
         <item name="RWE">
             <ticker>RWE.F</ticker>
-            <averagePrice>23.261</averagePrice>
-            <shareCount>350</shareCount>
+            <averagePrice>17.261</averagePrice>
+            <shareCount>115</shareCount>
         </item>
         <item name="Bank of America">
             <ticker>NCB.DE</ticker>
@@ -40,6 +40,36 @@
             <averagePrice>65.09</averagePrice>
             <shareCount>45</shareCount>
         </item>
+        <item name="Alibaba">
+            <ticker>AHLA.DE</ticker>
+            <averagePrice>195.621</averagePrice>
+            <shareCount>30</shareCount>
+        </item>
+        <item name="Xiaomi">
+            <ticker>3CP.F</ticker>
+            <averagePrice>2.947</averagePrice>
+            <shareCount>750</shareCount>
+        </item>
+        <item name="Raiffeisen">
+            <ticker>RAW.DE</ticker>
+            <averagePrice>16.916</averagePrice>
+            <shareCount>120</shareCount>
+        </item>
+        <item name="General Electric">
+            <ticker>GEC.DE</ticker>
+            <averagePrice>8.887</averagePrice>
+            <shareCount>460</shareCount>
+        </item>
+        <item name="JD.com">
+            <ticker>013C.F</ticker>
+            <averagePrice>28.05</averagePrice>
+            <shareCount>20</shareCount>
+        </item>
+        <item name="NIO">
+            <ticker>N3IA.F</ticker>
+            <averagePrice>27.93</averagePrice>
+            <shareCount>20</shareCount>
+        </item>
         <item name="NEL">
             <ticker>D7G.F</ticker>
             <averagePrice>1.731</averagePrice>
@@ -49,6 +79,16 @@
             <ticker>1NBA.DE</ticker>
             <averagePrice>61.98</averagePrice>
             <shareCount>10</shareCount>
+        </item>
+        <item name="Tencent">
+            <ticker>NNND.F</ticker>
+            <averagePrice>65.53</averagePrice>
+            <shareCount>15</shareCount>
+        </item>
+        <item name="Cellink">
+            <ticker>49Z.F</ticker>
+            <averagePrice>38.39</averagePrice>
+            <shareCount>30</shareCount>
         </item>
     </assets>
     <indices>
@@ -84,7 +124,8 @@
         <displayTimeFullList> 60 </displayTimeFullList>
         <displayTimeList> 30 </displayTimeList>
         <displayTimeSingle> 10 </displayTimeSingle>
-        <xResolution> 640 </xResolution>
-        <yResolution> 480 </yResolution>
+        <xResolution> 1024 </xResolution>
+        <yResolution> 768 </yResolution>
+        <startFullscreen>False</startFullscreen>
     </settings>
 </config>

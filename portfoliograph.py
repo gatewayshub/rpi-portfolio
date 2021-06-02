@@ -18,10 +18,12 @@ config = minidom.parse('config.xml')
 displayTimeFullList = int(config.getElementsByTagName('displayTimeFullList')[0].firstChild.data)
 displayTimeList = int(config.getElementsByTagName('displayTimeList')[0].firstChild.data)
 displayTimeSingle = int(config.getElementsByTagName('displayTimeSingle')[0].firstChild.data)
+startFullscreen = config.getElementsByTagName('startFullscreen')[0].firstChild.data
 
 pygame.display.init()
 pygame.font.init()
 pygame.mouse.set_visible(False)
+pygame.display.set_caption('Portfoliograph')
 xResolution = int(config.getElementsByTagName('xResolution')[0].firstChild.data)
 yResolution = int(config.getElementsByTagName('yResolution')[0].firstChild.data)
 tableX1 = int(xResolution / 20)
@@ -35,8 +37,11 @@ nameCut = 16
 colCountTiles = 3
 rowCountTiles = 3
 fontName = pygame.font.SysFont('Arial', int(yResolution / 10))
-#screen = pygame.display.set_mode([xResolution,yResolution])
-screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
+
+if startFullscreen == "True":
+    screen = pygame.display.set_mode([xResolution,yResolution],pygame.FULLSCREEN)
+else:
+    screen = pygame.display.set_mode([xResolution,yResolution])
 
 portfolio = Portfolio()
 
@@ -420,6 +425,8 @@ def tileView():
 
         x = col * xDelta
         y = row * yDelta
+        if row == 0:
+            y += 15
         displayTile(x,y,asset)
         count += 1
         length -= 1
@@ -433,7 +440,7 @@ def tileView():
             col = 0
             row = 0
 
-        if count >= tiles:
+        if count >= tiles or length == 0:
             if length >= tiles:
                 waitInputOrTimeout(displayTimeList)
                 count = 0
@@ -445,18 +452,19 @@ def tileView():
                 count = 0
                 screen.fill(bgColor)
                 #Fill the screen with old values
-                for asset in assetList[-tiles:-length]:
-                    x = col * xDelta
-                    y = row * yDelta
-                    displayTile(x, y, asset)
-                    count += 1
-                    col += 1
+                if length > 0:
+                    for asset in assetList[-tiles:-length]:
+                        x = col * xDelta
+                        y = row * yDelta
+                        displayTile(x, y, asset)
+                        count += 1
+                        col += 1
 
-                    if col == colCountTiles:
-                        col = 0
-                        row += 1
+                        if col == colCountTiles:
+                            col = 0
+                            row += 1
 
-                    pygame.display.flip()
+                        pygame.display.flip()
                 if running == False:
                     break
 
@@ -483,6 +491,8 @@ def tileViewIndices():
 
         x = col * xDelta
         y = row * yDelta
+        if row == 0:
+            y += 15
         displayTileIndex(x, y, index)
         count += 1
         length -= 1
@@ -496,7 +506,7 @@ def tileViewIndices():
             col = 0
             row = 0
 
-        if count >= tiles:
+        if count >= tiles or length == 0:
             if length >= tiles:
                 waitInputOrTimeout(displayTimeList)
                 count = 0
@@ -508,18 +518,19 @@ def tileViewIndices():
                 count = 0
                 screen.fill(bgColor)
                 # Fill the screen with old values
-                for index in indicesList[-tiles:-length]:
-                    x = col * xDelta
-                    y = row * yDelta
-                    displayTileIndex(x, y, index)
-                    count += 1
-                    col += 1
+                if length > 0:
+                    for index in indicesList[-tiles:-length]:
+                        x = col * xDelta
+                        y = row * yDelta
+                        displayTileIndex(x, y, index)
+                        count += 1
+                        col += 1
 
-                    if col == 3:
-                        col = 0
-                        row += 1
+                        if col == 3:
+                            col = 0
+                            row += 1
 
-                    pygame.display.flip()
+                        pygame.display.flip()
                 if running == False:
                     break
 
