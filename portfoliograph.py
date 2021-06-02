@@ -354,8 +354,8 @@ def displayTileIndex(startPosX, startPosY, index):
 
     fontFactorHeader = int(yResolution / 20)
     fontFactorData = int(yResolution / 20)
-    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader + 5)
-    fontData = pygame.font.SysFont('Arial', fontFactorData + 5)
+    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
+    fontData = pygame.font.SysFont('Arial', fontFactorData)
 
     textNameFitting = False
     length = len(index.getName())
