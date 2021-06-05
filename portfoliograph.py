@@ -614,7 +614,7 @@ def displayTileHeatMap(startPosX, startPosY, asset):
 def displayTotal():
     screen.fill(bgColor)
 
-    tableX1 = int(xResolution / 20)
+    tableX1 = int(xResolution / 7)
     tableX2 = int(xResolution - tableX1)
 
     xpos = int(xResolution / 20)
