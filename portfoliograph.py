@@ -617,11 +617,7 @@ def displayTotal():
     tableX1 = int(xResolution / 7)
     tableX2 = int(xResolution - tableX1)
 
-    xpos = int(xResolution / 20)
     ypos = int(yResolution / 20)
-
-    width = int(xResolution)
-    height = int(yResolution)
 
     center = int(xResolution / 2)
 
