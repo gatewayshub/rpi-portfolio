@@ -468,7 +468,6 @@ def tileView():
                 if running == False:
                     break
 
-
 def tileViewIndices():
     global running
 
@@ -534,6 +533,173 @@ def tileViewIndices():
                 if running == False:
                     break
 
+def displayTileHeatMap(startPosX, startPosY, asset):
+    colCountTiles = 5
+    rowcountTiles = 3
+    width = int(xResolution / colCountTiles)
+    height = int(yResolution / rowCountTiles)
+
+    tilesFactor = 40
+
+    fontFactorHeader = int(yResolution / tilesFactor)
+    fontFactorData = int(yResolution / tilesFactor)
+    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
+    fontData = pygame.font.SysFont('Arial', fontFactorData)
+
+    textNameFitting = False
+    length = len(asset.getName())
+
+    while not textNameFitting:
+        textName = fontHeader.render(asset.getName()[0:length], True, headerColor)
+        if textName.get_rect().width <= (width - (width / 20)):
+            textNameFitting = True
+        else:
+            length -= 1
+
+    textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
+    textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
+    textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
+    textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
+    textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
+    #textSubHeader = fontData.render("Today",True,headerColor)
+    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
+    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
+
+
+    tableX1 = int(width / 20)
+    tableX2 = int(width - tableX1)
+
+    ypos = int(height / 20 + startPosY)
+    xpos = tableX1 + startPosX
+
+    textRect = textName.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textName, textRect)
+
+    ypos += int(fontFactorHeader + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textPriceToday.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textPriceToday, textRect)
+
+    xpos = tableX2 + startPosX
+
+    textRect = textPercToday.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPercToday, textRect)
+
+    ypos += int(fontFactorData + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textProfit.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textProfit, textRect)
+
+    xpos = tableX2 + startPosX
+
+    textRect = textPercProfit.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPercProfit, textRect)
+
+    ypos += int(fontFactorData + 2)
+    xpos = tableX1 + startPosX
+
+    textRect = textValueToday.get_rect()
+    textRect.topleft = (xpos, ypos)
+    screen.blit(textValueToday, textRect)
+
+    pygame.display.flip()
+
+def displayTotal():
+    screen.fill(bgColor)
+
+    tableX1 = int(xResolution / 20)
+    tableX2 = int(xResolution - tableX1)
+
+    xpos = int(xResolution / 20)
+    ypos = int(yResolution / 20)
+
+    width = int(xResolution)
+    height = int(yResolution)
+
+    center = int(xResolution / 2)
+
+    fontFactorHeader = int(yResolution / 8)
+    fontFactorData = int(yResolution / 10)
+    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
+    fontData = pygame.font.SysFont('Arial', fontFactorData)
+
+    textHeader = fontHeader.render("Total Portfolio", True, headerColor)
+    textRect = textHeader.get_rect()
+
+    textRect.topleft = (int(center - textRect.width /2), int(yResolution / 20))
+    screen.blit(textHeader, textRect)
+
+    ypos += fontFactorHeader + 20
+
+    textRegularMarketPrice = fontData.render(str(round(portfolio.getPortfolioRegularMarketPrice(),2)), True, contentColor)
+    textPercToday = fontData.render(str(round(portfolio.getPortfolioPercToday(),2)) + "%",True, getColorForValue(portfolio.getPortfolioPercToday()))
+    textProfit =  fontData.render(str(round(portfolio.getPortfolioProfit(),2)), True, getColorForValue(portfolio.getPortfolioProfit()))
+    textProfitPerc = fontData.render(str(round(portfolio.getPortfolioProfitPerc(),2)) + "%", True, getColorForValue(portfolio.getPortfolioProfitPerc()))
+
+    textRect = textRegularMarketPrice.get_rect()
+    textRect.topleft = (tableX1, ypos)
+    screen.blit(textRegularMarketPrice, textRect)
+
+    textRect = textPercToday.get_rect()
+    textRect.topright = (tableX2, ypos)
+    screen.blit(textPercToday, textRect)
+
+    ypos += fontFactorData + 10
+
+    textRect = textProfit.get_rect()
+    textRect.topleft = (tableX1,ypos)
+    screen.blit(textProfit, textRect)
+
+    textRect = textProfitPerc.get_rect()
+    textRect.topright = (tableX2,ypos)
+    screen.blit(textProfitPerc,textRect)
+
+    assetList = portfolio.getAssetList()
+    length = len(assetList)
+    assetList.sort(key=lambda x: x.getCurrentAssetValue(), reverse=True)
+
+    count = 0
+    tiles = 15
+
+    xDelta = int(xResolution / 5)
+    yDelta = int(yResolution / 2 / 3)
+    row = 0
+    col = 0
+    x = 0
+    y = 0
+
+
+    for asset in portfolio.getAssetList():
+        x = col * xDelta
+        y = row * yDelta + yResolution / 2
+        if row == 0:
+            y += 15
+        displayTileHeatMap(x, y, asset)
+        count += 1
+        length -= 1
+        col += 1
+
+        if col == 5:
+            col = 0
+            row += 1
+
+        if row == 3:
+            col = 0
+            row = 0
+
+        if count >= tiles or length == 0:
+            waitInputOrTimeout(displayTimeList)
+            break
+
+    pygame.display.flip()
+
 def main():
     global running, colCountTiles
     running = True
@@ -580,7 +746,11 @@ def main():
 
                 tileViewIndices()
                 if running == False: break
+                displayTotal()
+                if running == False: break
                 tileView()
+                if running == False: break
+                displayTotal()
                 if running == False: break
                 portfolio.updatePortfolio()
                 if running == False: break
