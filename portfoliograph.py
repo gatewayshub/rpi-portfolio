@@ -626,8 +626,8 @@ def displayTotal():
 
 def displayTileOnHeatMap(startPosX, startPosY, asset):
     colCountTiles = 5
-    rowcountTiles = 3
-    width = int(xResolution / colCountTiles)
+    rowCountTiles = 3
+    width = int(xResolution / (colCountTiles + 1))
     height = int(yResolution / rowCountTiles)
 
     tilesFactor = 40
