@@ -536,7 +536,7 @@ def tileViewIndices():
 def displayTotalHead():
     screen.fill(bgColor)
 
-    tableX1 = int(xResolution / 7)
+    tableX1 = int(xResolution / 5)
     tableX2 = int(xResolution - tableX1)
 
     ypos = int(yResolution / 20)
@@ -775,8 +775,7 @@ def singleTotalScreen():
     for asset in assetList:
         x = col * xDelta
         y = row * yDelta + yResolution / 2
-        if col == 0:
-            x += int(xResolution / 5 - xResolution / 6)
+        x += int((xResolution / 5 - xResolution / 6)/2)
         if row == 0:
             y += 15
         displayTileOnHeatMap(x, y, asset)
@@ -810,8 +809,7 @@ def singleTotalScreen():
                     for asset in assetList[-tiles:-length]:
                         x = col * xDelta
                         y = row * yDelta + yResolution / 2
-                        if col == 0:
-                            x += int(xResolution / 5 - xResolution / 6)
+                        x += int((xResolution / 5 - xResolution / 6)/2)
                         if row == 0:
                             y += 15
                         displayTileOnHeatMap(x, y, asset)
@@ -846,8 +844,7 @@ def singleTotalIndexScreen():
     for index in indexList:
         x = col * xDelta
         y = row * yDelta + yResolution / 2
-        if col == 0:
-            x += int(xResolution / 5 - xResolution / 6)
+        x += int((xResolution / 5 - xResolution / 6)/2)
         if row == 0:
             y += 15
         displayTileIndexOnHeatMap(x, y, index)
@@ -881,8 +878,7 @@ def singleTotalIndexScreen():
                     for index in indexList[-tiles:-length]:
                         x = col * xDelta
                         y = row * yDelta + yResolution / 2
-                        if col == 0:
-                            x += int(xResolution / 5 - xResolution / 6)
+                        x += int((xResolution / 5 - xResolution / 6)/2)
                         if row == 0:
                             y += 15
                         displayTileIndexOnHeatMap(x, y, index)
