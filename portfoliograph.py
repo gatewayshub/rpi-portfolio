@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+from datetime import datetime
 import os
 import getopt
 import sys
@@ -33,6 +33,7 @@ headerColor = (255,225,1)
 contentColor = (235, 235, 235)
 redColor = (200, 50, 50)
 greenColor = (0, 200, 0)
+grayColor = (128, 128, 128)
 nameCut = 16
 colCountTiles = 3
 rowCountTiles = 3
@@ -110,6 +111,22 @@ def getColorForValue(value):
         return redColor
     else:
         return contentColor
+
+def getColorsDependingOnUpToDate(ticker):
+    isUpdated = ticker.isUpdated()
+    tickerTimestamp = ticker.getRegularMarketTime()
+
+    if datetime.fromtimestamp(tickerTimestamp).date() == datetime.today().date():
+        isUpToDate = True
+    else:
+        isUpToDate = False
+
+    if not isUpdated:
+        return redColor
+    elif isUpdated and not isUpToDate:
+        return grayColor
+    elif isUpdated and isUpToDate:
+        return headerColor
 
 def displayHeader(leftHeader, rightHeader):
     fontHeaderLeft = pygame.font.SysFont('Times New Roman', int(yResolution / 10))
@@ -641,21 +658,18 @@ def displayTileOnHeatMap(startPosX, startPosY, asset):
     length = len(asset.getName())
 
     while not textNameFitting:
-        textName = fontHeader.render(asset.getName()[0:length], True, headerColor)
+        textName = fontHeader.render(asset.getName()[0:length], True, getColorsDependingOnUpToDate(asset))
         if textName.get_rect().width <= (width - (width / 20)):
             textNameFitting = True
         else:
             length -= 1
 
     textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
+    textPriceTimeToday = fontData.render(time.strftime('%H:%M', time.localtime(asset.getRegularMarketTime())), True, contentColor)
     textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
     textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
     textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
     textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
-    #textSubHeader = fontData.render("Today",True,headerColor)
-    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
-    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
-
 
     tableX1 = int(width / 20)
     tableX2 = int(width - tableX1)
@@ -700,6 +714,12 @@ def displayTileOnHeatMap(startPosX, startPosY, asset):
     textRect.topleft = (xpos, ypos)
     screen.blit(textValueToday, textRect)
 
+    xpos = tableX2 + startPosX
+
+    textRect = textPriceTimeToday.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPriceTimeToday, textRect)
+
     pygame.display.flip()
 
 def displayTileIndexOnHeatMap(startPosX, startPosY, index):
@@ -719,7 +739,7 @@ def displayTileIndexOnHeatMap(startPosX, startPosY, index):
     length = len(index.getName())
 
     while not textNameFitting:
-        textName = fontHeader.render(index.getName()[0:length], True, headerColor)
+        textName = fontHeader.render(index.getName()[0:length], True, getColorsDependingOnUpToDate(index))
         if textName.get_rect().width <= (width - (width / 20)):
             textNameFitting = True
         else:
