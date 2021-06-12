@@ -615,47 +615,6 @@ def displayTotalHead():
     textRect.topright = (tableX2, ypos)
     screen.blit(textProfitPerc, textRect)
 
-def displayTotal():
-    displayTotalHead()
-    assetList = portfolio.getAssetList()
-    length = len(assetList)
-    assetList.sort(key=lambda x: x.getCurrentAssetValue(), reverse=True)
-
-    count = 0
-    tiles = 15
-
-    xDelta = int(xResolution / 5)
-    yDelta = int(yResolution / 2 / 3)
-    row = 0
-    col = 0
-    x = 0
-    y = 0
-
-
-    for asset in portfolio.getAssetList():
-        x = col * xDelta
-        y = row * yDelta + yResolution / 2
-        if row == 0:
-            y += 15
-        displayTile(x, y, asset)
-        count += 1
-        length -= 1
-        col += 1
-
-        if col == 5:
-            col = 0
-            row += 1
-
-        if row == 3:
-            col = 0
-            row = 0
-
-        if count >= tiles or length == 0:
-            waitInputOrTimeout(displayTimeList)
-            break
-
-    pygame.display.flip()
-
 def singleTotalScreen():
     global running
     displayTotalHead()
@@ -857,11 +816,7 @@ def main():
 
                 tileViewIndices()
                 if running == False: break
-                displayTotal()
-                if running == False: break
                 tileView()
-                if running == False: break
-                displayTotal()
                 if running == False: break
                 portfolio.updatePortfolio()
                 if running == False: break
