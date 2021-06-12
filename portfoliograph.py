@@ -780,6 +780,7 @@ def main():
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         running = False
 
+                if running == False: break
                 singleTotalScreen()
                 if running == False: break
                 singleTotalIndexScreen()
@@ -795,6 +796,7 @@ def main():
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         running = False
 
+                if running == False: break
                 overViewIndicesGraph()
                 if running == False: break
                 overViewAssetsGraph()
@@ -814,6 +816,7 @@ def main():
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         running = False
 
+                if running == False: break
                 tileViewIndices()
                 if running == False: break
                 tileView()
