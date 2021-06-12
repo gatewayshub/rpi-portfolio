@@ -294,8 +294,11 @@ def displayTile(startPosX, startPosY, asset):
         tilesFactor = 15
     if colCountTiles == 3:
         tilesFactor = 20
+    if colCountTiles == 5:
+        width = int(xResolution / (colCountTiles + 1))
+        tilesFactor = 40
 
-    fontFactorHeader = int(yResolution / tilesFactor)
+    fontFactorHeader = int(yResolution / (tilesFactor - 10))
     fontFactorData = int(yResolution / tilesFactor)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
@@ -304,20 +307,21 @@ def displayTile(startPosX, startPosY, asset):
     length = len(asset.getName())
 
     while not textNameFitting:
-        textName = fontHeader.render(asset.getName()[0:length], True, headerColor)
+        textName = fontHeader.render(asset.getName()[0:length], True, getColorsDependingOnUpToDate(asset))
         if textName.get_rect().width <= (width - (width / 20)):
             textNameFitting = True
         else:
             length -= 1
 
-    textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
-    textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
-    textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
-    textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
-    textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
-    #textSubHeader = fontData.render("Today",True,headerColor)
-    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
-    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
+    textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(), 2)), True, contentColor)
+    textPriceTimeToday = fontData.render(time.strftime('%H:%M', time.localtime(asset.getRegularMarketTime())), True,
+                                         contentColor)
+    textPercToday = fontData.render(str(round(asset.getPercToday(), 2)) + "%", True,
+                                    getColorForValue(asset.getPercToday()))
+    textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(), 1)), True, contentColor)
+    textProfit = fontData.render(str(round(asset.getProfit(), 1)), True, getColorForValue(asset.getProfit()))
+    textPercProfit = fontData.render(str(round(asset.getProfitPerc(), 1)) + "%", True,
+                                     getColorForValue(asset.getProfitPerc()))
 
 
     tableX1 = int(width / 20)
@@ -363,14 +367,26 @@ def displayTile(startPosX, startPosY, asset):
     textRect.topleft = (xpos, ypos)
     screen.blit(textValueToday, textRect)
 
+    xpos = tableX2 + startPosX
+
+    textRect = textPriceTimeToday.get_rect()
+    textRect.topright = (xpos, ypos)
+    screen.blit(textPriceTimeToday, textRect)
+
     pygame.display.flip()
 
 def displayTileIndex(startPosX, startPosY, index):
-    width = int(xResolution / 3)
-    height = int(yResolution / 3)
+    height = int(yResolution / rowCountTiles)
 
-    fontFactorHeader = int(yResolution / 20)
-    fontFactorData = int(yResolution / 20)
+    if colCountTiles == 3 or colCountTiles == 2:
+        tilesFactor = 20
+        width = int(xResolution / 3)
+    if colCountTiles == 5:
+        tilesFactor = 40
+        width = int(xResolution / colCountTiles)
+
+    fontFactorHeader = int(yResolution / tilesFactor)
+    fontFactorData = int(yResolution / tilesFactor)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
@@ -378,7 +394,7 @@ def displayTileIndex(startPosX, startPosY, index):
     length = len(index.getName())
 
     while not textNameFitting:
-        textName = fontHeader.render(index.getName()[0:length], True, headerColor)
+        textName = fontHeader.render(index.getName()[0:length], True, getColorsDependingOnUpToDate(index))
         if textName.get_rect().width <= (width - (width / 20)):
             textNameFitting = True
         else:
@@ -386,16 +402,8 @@ def displayTileIndex(startPosX, startPosY, index):
 
     textPriceToday = fontData.render(str(round(index.getRegularMarketPrice(),2)), True, contentColor)
     textPercToday = fontData.render(str(round(index.getPercToday(),2)) + "%", True, getColorForValue(index.getPercToday()))
-    #textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
-    #textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
-    #textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
-    #textSubHeader = fontData.render("Today",True,headerColor)
-    #textSubHeader2 = fontData.render("Profit Total", True, headerColor)
-    #textSubHeader3 = fontData.render("Asset Value", True, headerColor)
 
     center = int(width / 2)
-    #tableX1 = int(width / 20)
-    #tableX2 = width - tableX1
 
     ypos = int(height / 20) + startPosY
     xpos = center + startPosX
@@ -641,139 +649,6 @@ def displayTotal():
 
     pygame.display.flip()
 
-def displayTileOnHeatMap(startPosX, startPosY, asset):
-    colCountTiles = 5
-    rowCountTiles = 3
-    width = int(xResolution / (colCountTiles + 1))
-    height = int(yResolution / rowCountTiles)
-
-    tilesFactor = 40
-
-    fontFactorHeader = int(yResolution / (tilesFactor - 10))
-    fontFactorData = int(yResolution / tilesFactor)
-    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
-    fontData = pygame.font.SysFont('Arial', fontFactorData)
-
-    textNameFitting = False
-    length = len(asset.getName())
-
-    while not textNameFitting:
-        textName = fontHeader.render(asset.getName()[0:length], True, getColorsDependingOnUpToDate(asset))
-        if textName.get_rect().width <= (width - (width / 20)):
-            textNameFitting = True
-        else:
-            length -= 1
-
-    textPriceToday = fontData.render(str(round(asset.getRegularMarketPrice(),2)), True, contentColor)
-    textPriceTimeToday = fontData.render(time.strftime('%H:%M', time.localtime(asset.getRegularMarketTime())), True, contentColor)
-    textPercToday = fontData.render(str(round(asset.getPercToday(),2)) + "%", True, getColorForValue(asset.getPercToday()))
-    textValueToday = fontData.render(str(round(asset.getCurrentAssetValue(),1)), True, contentColor)
-    textProfit = fontData.render(str(round(asset.getProfit(),1)), True, getColorForValue(asset.getProfit()))
-    textPercProfit = fontData.render(str(round(asset.getProfitPerc(),1)) + "%", True, getColorForValue(asset.getProfitPerc()))
-
-    tableX1 = int(width / 20)
-    tableX2 = int(width - tableX1)
-
-    ypos = int(height / 20 + startPosY)
-    xpos = tableX1 + startPosX
-
-    textRect = textName.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textName, textRect)
-
-    ypos += int(fontFactorHeader + 2)
-    xpos = tableX1 + startPosX
-
-    textRect = textPriceToday.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textPriceToday, textRect)
-
-    xpos = tableX2 + startPosX
-
-    textRect = textPercToday.get_rect()
-    textRect.topright = (xpos, ypos)
-    screen.blit(textPercToday, textRect)
-
-    ypos += int(fontFactorData + 2)
-    xpos = tableX1 + startPosX
-
-    textRect = textProfit.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textProfit, textRect)
-
-    xpos = tableX2 + startPosX
-
-    textRect = textPercProfit.get_rect()
-    textRect.topright = (xpos, ypos)
-    screen.blit(textPercProfit, textRect)
-
-    ypos += int(fontFactorData + 2)
-    xpos = tableX1 + startPosX
-
-    textRect = textValueToday.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textValueToday, textRect)
-
-    xpos = tableX2 + startPosX
-
-    textRect = textPriceTimeToday.get_rect()
-    textRect.topright = (xpos, ypos)
-    screen.blit(textPriceTimeToday, textRect)
-
-    pygame.display.flip()
-
-def displayTileIndexOnHeatMap(startPosX, startPosY, index):
-    colCountTiles = 5
-    rowcountTiles = 3
-    width = int(xResolution / colCountTiles)
-    height = int(yResolution / rowCountTiles)
-
-    tilesFactor = 40
-
-    fontFactorHeader = int(yResolution / (tilesFactor - 10))
-    fontFactorData = int(yResolution / tilesFactor)
-    fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
-    fontData = pygame.font.SysFont('Arial', fontFactorData)
-
-    textNameFitting = False
-    length = len(index.getName())
-
-    while not textNameFitting:
-        textName = fontHeader.render(index.getName()[0:length], True, getColorsDependingOnUpToDate(index))
-        if textName.get_rect().width <= (width - (width / 20)):
-            textNameFitting = True
-        else:
-            length -= 1
-
-    textPriceToday = fontData.render(str(round(index.getRegularMarketPrice(),2)), True, contentColor)
-    textPercToday = fontData.render(str(round(index.getPercToday(),2)) + "%", True, getColorForValue(index.getPercToday()))
-
-
-    tableX1 = int(width / 20)
-    tableX2 = int(width - tableX1)
-
-    ypos = int(height / 20 + startPosY)
-    xpos = tableX1 + startPosX
-
-    textRect = textName.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textName, textRect)
-
-    ypos += int(fontFactorHeader + 2)
-    xpos = tableX1 + startPosX
-
-    textRect = textPriceToday.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textPriceToday, textRect)
-
-    ypos += int(fontFactorData + 2)
-
-    textRect = textPercToday.get_rect()
-    textRect.topleft = (xpos, ypos)
-    screen.blit(textPercToday, textRect)
-
-    pygame.display.flip()
-
 def singleTotalScreen():
     global running
     displayTotalHead()
@@ -794,11 +669,11 @@ def singleTotalScreen():
 
     for asset in assetList:
         x = col * xDelta
-        y = row * yDelta + yResolution / 2
+        y = int(row * yDelta + yResolution / 2)
         x += int((xResolution / 5 - xResolution / 6)/2)
         if row == 0:
             y += 15
-        displayTileOnHeatMap(x, y, asset)
+        displayTile(x, y, asset)
         count += 1
         length -= 1
         col += 1
@@ -828,11 +703,11 @@ def singleTotalScreen():
                     displayTotalHead()
                     for asset in assetList[-tiles:-length]:
                         x = col * xDelta
-                        y = row * yDelta + yResolution / 2
+                        y = int(row * yDelta + yResolution / 2)
                         x += int((xResolution / 5 - xResolution / 6)/2)
                         if row == 0:
                             y += 15
-                        displayTileOnHeatMap(x, y, asset)
+                        displayTile(x, y, asset)
                         count += 1
                         col += 1
 
@@ -863,11 +738,11 @@ def singleTotalIndexScreen():
 
     for index in indexList:
         x = col * xDelta
-        y = row * yDelta + yResolution / 2
+        y = int(row * yDelta + yResolution / 2)
         x += int((xResolution / 5 - xResolution / 6)/2)
         if row == 0:
             y += 15
-        displayTileIndexOnHeatMap(x, y, index)
+        displayTileIndex(x, y, index)
         count += 1
         length -= 1
         col += 1
@@ -897,11 +772,11 @@ def singleTotalIndexScreen():
                     displayTotalHead()
                     for index in indexList[-tiles:-length]:
                         x = col * xDelta
-                        y = row * yDelta + yResolution / 2
+                        y = int(row * yDelta + yResolution / 2)
                         x += int((xResolution / 5 - xResolution / 6)/2)
                         if row == 0:
                             y += 15
-                        displayTileIndexOnHeatMap(x, y, index)
+                        displayTileIndex(x, y, index)
                         count += 1
                         col += 1
 
@@ -931,6 +806,7 @@ def main():
 
     for opt, arg in opts:
         if opt == '-s':
+            colCountTiles = 5
             while running:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
