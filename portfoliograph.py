@@ -637,7 +637,7 @@ def displayTotal():
         y = row * yDelta + yResolution / 2
         if row == 0:
             y += 15
-        displayTileOnHeatMap(x, y, asset)
+        displayTile(x, y, asset)
         count += 1
         length -= 1
         col += 1
