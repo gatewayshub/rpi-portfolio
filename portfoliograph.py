@@ -1,6 +1,5 @@
 #!/usr/bin/python
 from datetime import datetime
-import os
 import getopt
 import sys
 import time
@@ -298,7 +297,7 @@ def displayTile(startPosX, startPosY, asset):
         width = int(xResolution / (colCountTiles + 1))
         tilesFactor = 40
 
-    fontFactorHeader = int(yResolution / (tilesFactor - 10))
+    fontFactorHeader = int(yResolution / (tilesFactor - (tilesFactor / 4)))
     fontFactorData = int(yResolution / tilesFactor)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
@@ -385,7 +384,7 @@ def displayTileIndex(startPosX, startPosY, index):
         tilesFactor = 40
         width = int(xResolution / colCountTiles)
 
-    fontFactorHeader = int(yResolution / tilesFactor)
+    fontFactorHeader = int(yResolution / (tilesFactor - (tilesFactor / 4)))
     fontFactorData = int(yResolution / tilesFactor)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
@@ -401,6 +400,8 @@ def displayTileIndex(startPosX, startPosY, index):
             length -= 1
 
     textPriceToday = fontData.render(str(round(index.getRegularMarketPrice(),2)), True, contentColor)
+    textPriceTimeToday = fontData.render(time.strftime('%H:%M', time.localtime(index.getRegularMarketTime())), True,
+                                         contentColor)
     textPercToday = fontData.render(str(round(index.getPercToday(),2)) + "%", True, getColorForValue(index.getPercToday()))
 
     center = int(width / 2)
@@ -425,6 +426,12 @@ def displayTileIndex(startPosX, startPosY, index):
     textRect = textPercToday.get_rect()
     textRect.topleft = (xpos - int(textRect.width / 2), ypos)
     screen.blit(textPercToday, textRect)
+
+    ypos += int(fontFactorHeader + 2)
+
+    textRect = textPriceTimeToday.get_rect()
+    textRect.topleft = (xpos - int(textRect.width / 2), ypos)
+    screen.blit(textPriceTimeToday, textRect)
 
     pygame.display.flip()
 
