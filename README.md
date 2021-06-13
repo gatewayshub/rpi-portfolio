@@ -14,6 +14,11 @@ Both use requests module to fetch data from yahoo webservice.
 
 Make sure all used modules are installed before using this scripts.
 
+Headercolors:
+- Yellow - everything is ok
+- Gray - values not from today
+- Red - problem with webservice call... ticker not up-to-date
+
 Some examples:
 
 ./portfoliograph.py -s
