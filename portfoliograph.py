@@ -17,7 +17,7 @@ config = minidom.parse('config.xml')
 displayTimeFullList = int(config.getElementsByTagName('displayTimeFullList')[0].firstChild.data)
 displayTimeList = int(config.getElementsByTagName('displayTimeList')[0].firstChild.data)
 displayTimeSingle = int(config.getElementsByTagName('displayTimeSingle')[0].firstChild.data)
-startFullscreen = config.getElementsByTagName('startFullscreen')[0].firstChild.data
+startFullscreen = config.getElementsByTagName('startFullscreen')[0].firstChild.data.strip()
 
 pygame.display.init()
 pygame.font.init()
@@ -568,7 +568,7 @@ def tileViewIndices():
 def displayTotalHead():
     screen.fill(bgColor)
 
-    tableX1 = int(xResolution / 5)
+    tableX1 = int(xResolution / 3.5)
     tableX2 = int(xResolution - tableX1)
 
     ypos = int(yResolution / 20)
@@ -576,7 +576,7 @@ def displayTotalHead():
     center = int(xResolution / 2)
 
     fontFactorHeader = int(yResolution / 8)
-    fontFactorData = int(yResolution / 10)
+    fontFactorData = int(yResolution / 15)
     fontHeader = pygame.font.SysFont('Arial', fontFactorHeader)
     fontData = pygame.font.SysFont('Arial', fontFactorData)
 
@@ -588,24 +588,26 @@ def displayTotalHead():
 
     ypos += fontFactorHeader + 20
 
-    textRegularMarketPrice = fontData.render(str(round(portfolio.getPortfolioRegularMarketPrice(), 2)), True,
+    textRegularMarketPrice = fontHeader.render(str(round(portfolio.getPortfolioRegularMarketPrice(), 2)), True,
                                              contentColor)
     textPercToday = fontData.render(str(round(portfolio.getPortfolioPercToday(), 2)) + "%", True,
                                     getColorForValue(portfolio.getPortfolioPercToday()))
+    textProfitToday = fontData.render(str(round(portfolio.getPortfolioProfitToday(), 2)), True,
+                                    getColorForValue(portfolio.getPortfolioProfitToday()))
     textProfit = fontData.render(str(round(portfolio.getPortfolioProfit(), 2)), True,
                                  getColorForValue(portfolio.getPortfolioProfit()))
     textProfitPerc = fontData.render(str(round(portfolio.getPortfolioProfitPerc(), 2)) + "%", True,
                                      getColorForValue(portfolio.getPortfolioProfitPerc()))
 
-    textRect = textRegularMarketPrice.get_rect()
+    textRect = textProfitToday.get_rect()
     textRect.topleft = (tableX1, ypos)
-    screen.blit(textRegularMarketPrice, textRect)
+    screen.blit(textProfitToday, textRect)
 
     textRect = textPercToday.get_rect()
     textRect.topright = (tableX2, ypos)
     screen.blit(textPercToday, textRect)
 
-    ypos += fontFactorData + 10
+    ypos += fontFactorData + 8
 
     textRect = textProfit.get_rect()
     textRect.topleft = (tableX1, ypos)
@@ -614,6 +616,12 @@ def displayTotalHead():
     textRect = textProfitPerc.get_rect()
     textRect.topright = (tableX2, ypos)
     screen.blit(textProfitPerc, textRect)
+
+    ypos += fontFactorData + 20
+
+    textRect = textRegularMarketPrice.get_rect()
+    textRect.topleft = (int(xResolution / 2 - textRect.width / 2), ypos)
+    screen.blit(textRegularMarketPrice, textRect)
 
 def singleTotalScreen():
     global running
