@@ -1,18 +1,29 @@
-# shellportfolio
+# rpi-portfolio
 
-Script for fetching different share prices and share index prices into different table layouts.
+Script for fetching different share prices and share index prices into different table layouts in shell and with pygame graphic.
 Data is fetched from yahoo finance so every ticker from there will work in config.xml.
 Because this script uses yahoo finance tickers please have a look at the terms of use.
 
 Multicurrency is not supported by now... keep only tickers with the same currency in config!
 
-portfoliograph.py -> pygame is used to output to screen
+portfoliograph.py  -> pygame is used to output to screen
 
 shellportfolio.py -> prettytable is used to generate the table outputs
 
 Both use requests module to fetch data from yahoo webservice.
 
 Make sure all used modules are installed before using this scripts.
+
+Headercolors:
+- Yellow - everything is ok
+- Gray - values not from today
+- Red - problem with webservice call... ticker not up-to-date
+
+Some examples:
+
+./portfoliograph.py -s
+
+![portfolio_total](https://user-images.githubusercontent.com/80522869/120933513-cdb13b00-c6fa-11eb-804a-9d45a620dfcf.jpg)
 
 ./portfoliograph.py -t
 

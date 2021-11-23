@@ -20,26 +20,44 @@ class Ticker(object):
     def __init__(self, symbol):
         self.symbol = symbol
         self.regularMarketPrice = 0
+        self.regularMarketTime = 0
         self.regularMarketPrevClose = 0
         self.percToday = 0
         self.currency = ""
+        self.updated = False
         self.updateTicker()
-        
+
     def getOnlineJson(self):
-        url = Ticker.yahooUrl + self.symbol
-        r = requests.get(url, headers=Ticker.headers)            
-        assetJson = json.loads(r.text)
+        try:
+            url = Ticker.yahooUrl + self.symbol
+            r = requests.get(url, headers=Ticker.headers)
+            assetJson = json.loads(r.text)
+        except:
+            print("Yahoo webservice not reachable")
+            return None
         return assetJson
    
     def updateTicker(self):
         assetJson = self.getOnlineJson()
-        self.regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
-        self.regularMarketPrevClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
-        self.percToday = self.regularMarketPrice / self.regularMarketPrevClose * 100 - 100
-        self.currency = assetJson['quoteResponse']['result'][0]['currency']
-        
+        if assetJson:
+            self.regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
+            self.regularMarketTime = assetJson['quoteResponse']['result'][0]['regularMarketTime']
+            self.regularMarketPrevClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
+            self.percToday = self.regularMarketPrice / self.regularMarketPrevClose * 100 - 100
+            self.currency = assetJson['quoteResponse']['result'][0]['currency']
+            self.updated = True
+        else:
+            self.updated = False
+            print("Update Ticker not updating asset due to problems with yahoo webservice")
+
+    def isUpdated(self):
+        return self.updated
+
     def getRegularMarketPrice(self):
         return self.regularMarketPrice
+
+    def getRegularMarketTime(self):
+        return self.regularMarketTime
         
     def getRegularMarketPrevClose(self):
         return self.regularMarketPrevClose

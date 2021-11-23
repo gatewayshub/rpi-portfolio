@@ -1,54 +1,24 @@
 <config>
     <assets>
-        <item name="Teamviewer">
-            <ticker>TMV.DE</ticker>
-            <averagePrice>32.08</averagePrice>
-            <shareCount>320</shareCount>
+        <item name="JD.com">
+            <ticker>013C.F</ticker>
+            <averagePrice>25.05</averagePrice>
+            <shareCount>30</shareCount>
         </item>
-        <item name="Uniqa">
-            <ticker>UQA.VI</ticker>
-            <averagePrice>8.919</averagePrice>
-            <shareCount>500</shareCount>
-        </item>
-        <item name="AMS AG">
-            <ticker>AMS.VI</ticker>
-            <averagePrice>10</averagePrice>
-            <shareCount>300</shareCount>
-        </item>
-        <item name="TUI">
-            <ticker>TUI1.DE</ticker>
-            <averagePrice>2.797</averagePrice>
-            <shareCount>1100</shareCount>
-        </item>
-        <item name="Viscom">
-            <ticker>V6C.DE</ticker>
-            <averagePrice>8.7</averagePrice>
-            <shareCount>300</shareCount>
-        </item>
-        <item name="RWE">
-            <ticker>RWE.F</ticker>
-            <averagePrice>23.261</averagePrice>
-            <shareCount>350</shareCount>
-        </item>
-        <item name="Bank of America">
-            <ticker>NCB.DE</ticker>
-            <averagePrice>20.955</averagePrice>
-            <shareCount>100</shareCount>
-        </item>
-        <item name="Colgate-Palmolive">
-            <ticker>CPA.DE</ticker>
-            <averagePrice>65.09</averagePrice>
-            <shareCount>45</shareCount>
+        <item name="NIO">
+            <ticker>N3IA.F</ticker>
+            <averagePrice>23.93</averagePrice>
+            <shareCount>50</shareCount>
         </item>
         <item name="NEL">
             <ticker>D7G.F</ticker>
-            <averagePrice>1.731</averagePrice>
-            <shareCount>300</shareCount>
+            <averagePrice>1.531</averagePrice>
+            <shareCount>400</shareCount>
         </item>
         <item name="Anheuser-Busch Inbev">
             <ticker>1NBA.DE</ticker>
-            <averagePrice>61.98</averagePrice>
-            <shareCount>10</shareCount>
+            <averagePrice>51.98</averagePrice>
+            <shareCount>20</shareCount>
         </item>
     </assets>
     <indices>
@@ -73,18 +43,14 @@
         <index name="BTC">
             <ticker>BTC-EUR</ticker>
         </index>
-        <index name="Cardano">
-            <ticker>ADA-EUR</ticker>
-        </index>
-        <index name="Ethereum">
-            <ticker>ETH-EUR</ticker>
-        </index>
     </indices>
     <settings>
         <displayTimeFullList> 60 </displayTimeFullList>
         <displayTimeList> 30 </displayTimeList>
         <displayTimeSingle> 10 </displayTimeSingle>
-        <xResolution> 640 </xResolution>
-        <yResolution> 480 </yResolution>
+        <xResolution> 1024 </xResolution>
+        <yResolution> 768 </yResolution>
+        <startFullscreen>False</startFullscreen>
     </settings>
 </config>
+

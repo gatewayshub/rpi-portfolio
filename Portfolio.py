@@ -46,6 +46,10 @@ class Portfolio(object):
     def getPortfolioPercToday(self):
         portfolioPercToday = float(self.getPortfolioRegularMarketPrice()) / float(self.getPortfolioRegularMarketPrevClose()) * 100 -100
         return portfolioPercToday
+
+    def getPortfolioProfitToday(self):
+        portfolioProfitToday = self.getPortfolioRegularMarketPrice() - self.getPortfolioRegularMarketPrevClose()
+        return portfolioProfitToday
         
     def getPortfolioPercTodayColored(self):
         portfolioPercToday = self.getPortfolioPercToday()
