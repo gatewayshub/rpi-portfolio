@@ -1,0 +1,12 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "rpiportfolio" do |rpi|
+    rpi.vm.box = "gatewayshub/debian11-minimal-gui"
+    rpi.vm.hostname = "rpiportfolio"
+    rpi.vm.provision "shell" do |shell|
+      shell.inline = "apt-get update -qy && \
+                      apt-get install python3-pygame python3-requests python3-prettytable -qy \
+                      && git clone https://github.com/gatewayshub/rpi-portfolio.git /home/vagrant/rpiportfolio"
+    end
+  end
+end 
+
