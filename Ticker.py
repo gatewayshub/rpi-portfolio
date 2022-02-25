@@ -40,12 +40,15 @@ class Ticker(object):
     def updateTicker(self):
         assetJson = self.getOnlineJson()
         if assetJson:
-            self.regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
-            self.regularMarketTime = assetJson['quoteResponse']['result'][0]['regularMarketTime']
-            self.regularMarketPrevClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
-            self.percToday = self.regularMarketPrice / self.regularMarketPrevClose * 100 - 100
-            self.currency = assetJson['quoteResponse']['result'][0]['currency']
-            self.updated = True
+            try:
+                self.regularMarketPrice = assetJson['quoteResponse']['result'][0]['regularMarketPrice']
+                self.regularMarketTime = assetJson['quoteResponse']['result'][0]['regularMarketTime']
+                self.regularMarketPrevClose = assetJson['quoteResponse']['result'][0]['regularMarketPreviousClose']
+                self.percToday = self.regularMarketPrice / self.regularMarketPrevClose * 100 - 100
+                self.currency = assetJson['quoteResponse']['result'][0]['currency']
+                self.updated = True
+            except:
+                print("Ticker not updating due to yahoo webservice delivering odd information")
         else:
             self.updated = False
             print("Update Ticker not updating asset due to problems with yahoo webservice")
