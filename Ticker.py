@@ -49,6 +49,7 @@ class Ticker(object):
                 self.updated = True
             except:
                 print("Ticker not updating due to yahoo webservice delivering odd information")
+                self.updated = False
         else:
             self.updated = False
             print("Update Ticker not updating asset due to problems with yahoo webservice")
