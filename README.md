@@ -25,6 +25,12 @@ Some examples:
 
 ![portfolio_total](https://user-images.githubusercontent.com/80522869/120933513-cdb13b00-c6fa-11eb-804a-9d45a620dfcf.jpg)
 
+./portfolio_config.py
+
+![image](https://user-images.githubusercontent.com/80522869/158847050-2d5e310d-bee5-46d3-8435-9906f2bb901f.png)
+
+Update any values you want to change and save config afterwards. Update every change to a asset, index or setting before selecting the next item from listbox.  
+
 ./portfoliograph.py -t
 
 ![portfoliograph_t](https://user-images.githubusercontent.com/80522869/120079610-f6ab4d80-c0b4-11eb-9776-090a8967f78c.JPG)
