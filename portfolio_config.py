@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import PySimpleGUI as sg
 from xml.dom import minidom
 import os
