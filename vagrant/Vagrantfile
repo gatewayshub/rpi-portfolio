@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
     rpi.vm.hostname = "rpiportfolio"
     rpi.vm.provision "shell" do |shell|
       shell.inline = "apt-get update -qy && \
-                      apt-get install python3-pip python3-pygame python3-requests python3-prettytable -qy &&\
+                      apt-get install python3-tk python3-pip python3-pygame python3-requests python3-prettytable -qy &&\
                       pip3 install pySimpleGUI &&\
                       git clone https://github.com/gatewayshub/rpi-portfolio.git /home/vagrant/rpiportfolio"
     end
